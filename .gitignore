@@ -1,0 +1,45 @@
+## Ignore build outputs
+bin/
+obj/
+
+## Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+
+## Rider
+.idea/
+
+## NuGet
+*.nupkg
+packages/
+
+## Publish folders
+publish/
+*.publish/
+
+## Logs and databases
+*.log
+*.db
+*.sqlite
+
+## Debug files
+*.pdb
+
+## OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+## Rider and ReSharper
+.ReSharper*/
+
+## Temporary files
+*.tmp
+*.temp

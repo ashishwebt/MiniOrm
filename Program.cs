@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Data.Sqlite;
 
 namespace MiniOrmDemo
@@ -12,7 +11,6 @@ namespace MiniOrmDemo
             using var conn = new SqliteConnection("Data Source=demo.db");
             conn.Open();
 
-            // Fresh table each run, so the demo is repeatable.
             using (var setup = conn.CreateCommand())
             {
                 setup.CommandText = @"
@@ -25,7 +23,8 @@ namespace MiniOrmDemo
                 setup.ExecuteNonQuery();
             }
 
-            var orm = new MiniOrm<Person>(conn);
+            IExpressionTranslator translator = new SqlTranslator();
+            IRepository<Person> orm = new MiniOrm<Person>(conn, translator);
 
             Console.WriteLine("=== INSERT ===");
             orm.Insert(new Person { Name = "Alice", Age = 30 });
@@ -41,7 +40,7 @@ namespace MiniOrmDemo
             Print(startsWithA);
 
             Console.WriteLine("\n=== SELECT: p => p.Age > 26 && p.Name != \"Amanda\" (closure demo) ===");
-            int minAge = 26; // captured local variable -> becomes a SQL parameter
+            int minAge = 26;
             var filtered = orm.Select(p => p.Age > minAge && p.Name != "Amanda");
             Print(filtered);
 
